@@ -25,6 +25,6 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('api.login
 Route::post('/users/store', [UserController::class, 'store'])->name('api.users.store');
 
 Route::group(['middleware' => 'jwt.auth'], function (){
-    Route::get('/stock', [StockController::class, 'show'])->name('api.stocks.show');
-    Route::get('/history', [HistoryController::class, 'index']);
+    Route::get('/stocks', [StockController::class, 'show'])->name('api.stocks.show');
+    Route::get('/histories', [HistoryController::class, 'index'])->name('api.histories.index');
 });
