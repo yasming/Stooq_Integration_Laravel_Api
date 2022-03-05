@@ -7,6 +7,8 @@ use App\Models\UserRequestsHistory;
 use App\Services\Gateways\Stooq\Stooq;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class StockController extends Controller
 {
@@ -25,16 +27,20 @@ class StockController extends Controller
 
     private function logResults($stooqResults)
     {
-        UserRequestsHistory::create([
-            'date'    => Carbon::parse($stooqResults[1] . ' '.$stooqResults[2]),
-            'name'    => $stooqResults[8],
-            'symbol'  => $stooqResults[0],
-            'open'    => $stooqResults[3],
-            'high'    => $stooqResults[4],
-            'low'     => $stooqResults[5],
-            'close'   => $stooqResults[6],
-            'user_id' => auth()->user()->id
-        ]);
+        try {
+            UserRequestsHistory::create([
+                'date'    => Carbon::parse($stooqResults[1] . ' '.$stooqResults[2]),
+                'name'    => $stooqResults[8],
+                'symbol'  => $stooqResults[0],
+                'open'    => $stooqResults[3],
+                'high'    => $stooqResults[4],
+                'low'     => $stooqResults[5],
+                'close'   => $stooqResults[6],
+                'user_id' => auth()->user()->id
+            ]);
+        } catch (\Exception $e) {
+            Log::info('User id: '.auth()->user()->id . ' made a wrong search !');
+        }
     }
 
     private function formatResults($results)
