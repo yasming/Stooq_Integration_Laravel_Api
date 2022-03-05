@@ -1,0 +1,41 @@
+services:
+    dependencies_installation:
+        image: ambientum/php:8.0-nginx
+        command: bash /app/docker/dependencies/docker-dependencies.sh
+        volumes:
+            - ./:/app
+        networks:
+            - mysql-network
+        depends_on:
+            - mysql
+    nginx:
+        image: ambientum/php:7.4-nginx
+        container_name: stooq_integration_nginx
+        volumes:
+            - ./:/var/www/app
+        ports:
+            - 80:8080
+        depends_on:
+            - dependencies_installation
+            - mysql
+        networks:
+            - mysql-network
+
+    mysql:
+        image: mysql:latest
+        platform: linux/x86_64
+        container_name: stooq_integration_mysql
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_ROOT_PASSWORD:
+            MYSQL_HOST: localhost
+        volumes:
+            - ./docker/mysql:/docker-entrypoint-initdb.d
+        networks:
+            - mysql-network
+        ports:
+            - "3306:3306"
+
+networks:
+    mysql-network:
+        driver: bridge
