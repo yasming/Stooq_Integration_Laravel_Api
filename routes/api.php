@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/login', [LoginController::class, 'authenticate'])->name('api.login');
 Route::post('/users/store', [UserController::class, 'store'])->name('api.users.store');
 
 Route::group(['middleware' => 'jwt.auth'], function (){

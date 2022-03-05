@@ -1,9 +1,10 @@
-<?php
-
-namespace App\Http\Controllers\Auth;
+<?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use JWTAuth;
 
 class LoginController extends Controller
 {
@@ -11,7 +12,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
         try {
-            if (! $token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], HttpResponse::HTTP_UNAUTHORIZED);
             }
         } catch (JWTException $e) {
