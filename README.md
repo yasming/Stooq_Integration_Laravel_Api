@@ -99,7 +99,7 @@ Response:
 ```
 
 
-- Get informations from makert to specific a specific quot
+- Get informations from makert to a specific quot
 
 
 ```
@@ -125,7 +125,7 @@ Response:
 ```
 
 
-- Get history from users market requests
+- Get history from users market successfully requests
 
 
 ```
