@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::get('/users/store', [UserController::class, 'store']);
+Route::post('/users/store', [UserController::class, 'store'])->name('api.users.store');
 
 Route::group(['middleware' => 'jwt.auth'], function (){
     Route::get('/stock', [StockController::class, 'show']);
