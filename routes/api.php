@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use \App\Http\Controllers\Auth\LoginController;
+use \App\Http\Controllers\Users\UserController;
+use \App\Http\Controllers\Stocks\StockController;
+use \App\Http\Controllers\Histories\HistoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/users/store', [UserController::class, 'store']);
+
+Route::group(['middleware' => 'jwt.auth'], function (){
+    Route::get('/stock', [StockController::class, 'show']);
+    Route::get('/history', [HistoryController::class, 'index']);
 });
