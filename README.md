@@ -1,64 +1,186 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Bank_Transfer_Api
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is an API that integrates with stooq services: https://stooq.com/q/l/?s=AAPL.US&f=sd2t2ohlcvn&h&e=csv, the parameter "s" changes and according to this parameter results from the market are gotten.
+One of the API's endpoints returns the market results, we also have, jwt authentication, user creation, and history of user's calls to market results endpoint.
 
-## About Laravel
+## Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+```
+Docker
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### How to run project's locally
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
+docker-compose up
+```
 
-## Learning Laravel
+```
+After all containers be built the project will be able to access on localhost:80
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+To run project's test is need to do:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. docker exec -it stooq_integration_nginx /bin/bash
+2. php artisan test
+```
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- How to consume the project routes: 
 
-### Premium Partners
+```
+Authentication endpoint
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```
+POST http://localhost:8000/api/login
+```
 
-## Contributing
+```
+Body: 
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+{
+    email: "yasmin@hotmail.com",
+    password: "1234"
+} 
+```
 
-## Code of Conduct
+```
+Response: 
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+{
+    "data": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9zdG9vcS1pbnRlZ3JhdGlvbi1hcHAudGVzdFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0NjUxNDQwMiwiZXhwIjoxNjQ2NTE4MDAyLCJuYmYiOjE2NDY1MTQ0MDIsImp0aSI6IjRXMWwxRXJQOVBlY3VaVk0iLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.NYVjA7TX9dLxqOXDTIdri60PW7u1RvzqxMvriouOfcw",
+        "user": {
+            "id": 1,
+            "name": "Mr. Uriel Pollich MD",
+            "email": "jo.wiza@example.net",
+            "email_verified_at": "2022-03-05T21:06:23.000000Z",
+            "created_at": "2022-03-05T21:06:24.000000Z",
+            "updated_at": "2022-03-05T21:06:24.000000Z"
+        }
+    }
+}
+```
 
-## Security Vulnerabilities
+```
+Create user endpoint
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+POST http://localhost:8000/api/users/store
+```
 
-## License
+```
+Body: 
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+{
+    name: "jane"
+    email: "jane@doe.com",
+    password: "1234"
+} 
+```
+
+```
+Response:
+```
+
+```
+{
+   "message" => "User created successfully !"
+}
+```
+
+```
+Get informations from makert to specific a specific quot
+```
+
+```
+GET localhost:8000/api/stocks?q=AAPL.US
+```
+
+```
+Response:
+```
+
+```
+{
+    "symbol": "AAPL.US",
+    "date": "2022-03-04",
+    "time": "22:00:07",
+    "open": "164.49",
+    "high": "165.55",
+    "low": "162.1",
+    "close": "163.17",
+    "volume": "83819592",
+    "name": "APPLE\r"
+}
+```
+
+```
+Get history from users market requests
+```
+
+```
+GET localhost:8000/api/histories
+```
+
+
+```
+Response:
+```
+
+```
+{
+   "current_page": 1,
+    "data": [
+        {
+            "id": 1,
+            "date": "2022-03-04 22:00:07",
+            "name": "APPLE\r",
+            "symbol": "AAPL.US",
+            "open": 164.49,
+            "high": 165.55,
+            "low": 162.1,
+            "close": 163.17,
+            "user_id": 1,
+            "created_at": "2022-03-05T21:15:02.000000Z",
+            "updated_at": "2022-03-05T21:15:02.000000Z"
+        }
+    ],
+    "first_page_url": "http://stooq-integration-app.test/api/histories?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http://stooq-integration-app.test/api/histories?page=1",
+    "links": [
+        {
+            "url": null,
+            "label": "&laquo; Previous",
+            "active": false
+        },
+        {
+            "url": "http://stooq-integration-app.test/api/histories?page=1",
+            "label": "1",
+            "active": true
+        },
+        {
+            "url": null,
+            "label": "Next &raquo;",
+            "active": false
+        }
+    ],
+    "next_page_url": null,
+    "path": "http://stooq-integration-app.test/api/histories",
+    "per_page": 20,
+    "prev_page_url": null,
+    "to": 1,
+    "total": 1
+}
+```
