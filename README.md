@@ -29,9 +29,9 @@ To run project's test is need to do:
 
 - How to consume the project routes: 
 
-```
+
 - Authentication endpoint
-```
+
 
 ```
 POST http://localhost:8000/api/login
@@ -68,9 +68,9 @@ Response:
 }
 ```
 
-```
-Create user endpoint
-```
+
+- Create user endpoint
+
 
 ```
 POST http://localhost:8000/api/users/store
@@ -98,9 +98,9 @@ Response:
 }
 ```
 
-```
-Get informations from makert to specific a specific quot
-```
+
+- Get informations from makert to specific a specific quot
+
 
 ```
 GET localhost:8000/api/stocks?q=AAPL.US
@@ -124,9 +124,9 @@ Response:
 }
 ```
 
-```
-Get history from users market requests
-```
+
+- Get history from users market requests
+
 
 ```
 GET localhost:8000/api/histories
