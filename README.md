@@ -30,7 +30,7 @@ To run project's test is need to do:
 - How to consume the project routes: 
 
 ```
-Authentication endpoint
+- Authentication endpoint
 ```
 
 ```
