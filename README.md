@@ -1,4 +1,4 @@
-# Bank_Transfer_Api
+# Stooq Integration
 
 This project is an API that integrates with stooq services: https://stooq.com/q/l/?s=AAPL.US&f=sd2t2ohlcvn&h&e=csv, the parameter "s" changes and according to this parameter results from the market are gotten.
 One of the API's endpoints returns the market results, we also have, jwt authentication, user creation, and history of user's calls to market results endpoint.
