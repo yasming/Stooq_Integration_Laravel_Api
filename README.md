@@ -34,7 +34,7 @@ To run project's test is need to do:
 
 
 ```
-POST http://localhost:8000/api/login
+POST http://localhost:80/api/login
 ```
 
 ```
@@ -73,7 +73,7 @@ Response:
 
 
 ```
-POST http://localhost:8000/api/users/store
+POST http://localhost:80/api/users/store
 ```
 
 ```
@@ -103,7 +103,7 @@ Response:
 
 
 ```
-GET localhost:8000/api/stocks?q=AAPL.US
+GET localhost:80/api/stocks?q=AAPL.US
 ```
 
 ```
